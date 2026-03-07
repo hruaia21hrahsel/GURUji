@@ -4,80 +4,96 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-GURUji is an AI-powered NCERT lesson explainer for Indian students (Class 6–12). Students scan a textbook page, and the app generates an animated, narrated lesson using Claude AI and TTS.
+GURUji is a Socratic AI tutor for Indian students (Class 6-12), aligned to the NCERT curriculum. Students chat with GURUji to get guided help with any subject — the AI never gives answers directly, instead guiding discovery through questions and hints.
 
 ## Tech Stack
 
-- **Framework**: Next.js (App Router) with TypeScript
-- **Styling**: Tailwind CSS v4 + shadcn/ui
-- **State**: Zustand
-- **Backend**: Supabase (auth, DB, storage)
-- **PWA**: next-pwa
-- **AI**: Claude API (lesson generation), ElevenLabs or Google TTS (audio)
+- **Framework**: Expo SDK 55 (React Native) with Expo Router (file-based routing)
+- **Styling**: NativeWind v4 (Tailwind CSS for React Native)
+- **AI**: Vercel AI SDK (`ai`, `@ai-sdk/anthropic`) + `useChat` hook
+- **State**: Zustand with persist middleware (AsyncStorage)
+- **Database**: Supabase (lazy/optional — app works without it)
+- **Streaming**: `expo/fetch` for native streaming support
 
 ## Commands
 
 ```bash
-npm run dev       # Start dev server → localhost:3000
-npm run build     # Production build
-npm run lint      # ESLint
+npx expo start         # Start dev server
+npx expo start --web   # Start web version
+npm run android        # Start Android
+npm run ios            # Start iOS
 ```
 
 ## Architecture
 
 ### App Flow
 
-1. **Onboarding** — 3-step flow (class, subject, language preferences) stored in Zustand
-2. **PageScanner** — camera capture / image upload / manual text input → `/api/identify-page`
-3. **Lesson Generation** — identified page → `/api/generate-lesson` → animated lesson JSON
-4. **LessonPlayer** — renders lesson using a canvas-based TimelineEngine driven by a RAF loop
-5. **Audio** — `/api/lesson-audio/[id]` serves TTS audio synced to the timeline
+1. **Onboarding** — 3-step flow (class, board, language) stored in Zustand
+2. **Tab Navigator** — Home, Ask GURUji (chat), Settings
+3. **Chat** — `useChat` hook streams messages via `/api/chat` API route
+4. **API Route** — `app/api/chat+api.ts` proxies to Claude API (keeps key server-side)
 
-### Key Architectural Patterns
+### Key Patterns
 
-**Supabase client** is a lazy singleton Proxy — only initializes when env vars are present. The app works fully without Supabase configured (all phases use mock APIs during development).
+**Expo Router** — file-based routing in `app/` directory. `(tabs)` for tab navigator, `onboarding/` for onboarding stack.
 
-**Canvas coordinate system** — all visual positions are stored as 0–1 fractions of canvas dimensions. Scale to pixels with `x * canvasWidth`, `y * canvasHeight`. Font sizes use `fontSize * (cw / 800)` for responsive scaling.
+**NativeWind** — Tailwind classes via `className` prop. Configured in `tailwind.config.js`, `metro.config.js`, `babel.config.js`.
 
-**Lesson JSON format**:
-- `segments[].visuals[].timestamp` — ms when visual starts (absolute from lesson start)
-- `segments[].visuals[].duration` — ms for the animation to complete
-- `progress = (currentMs - timestamp) / duration` drives all animations 0→1
+**Zustand stores** — `useAppStore` (profile + onboarding state), `useChatStore` (chat sessions). Both persist to AsyncStorage.
 
-**TimelineEngine** — RAF loop that computes current progress for each visual and calls the appropriate canvas draw function. All animation functions are pure: `(ctx, progress, params) => void`.
+**System prompt** — `lib/system-prompt.ts` embeds the full GURUji persona as a string constant. `buildSystemPrompt(profile)` appends dynamic context (class, board, language, grade-level instructions).
+
+**Supabase client** — lazy singleton in `lib/supabase.ts`. Only initializes when env vars are present.
 
 ### Environment Variables
 
 ```
-NEXT_PUBLIC_SUPABASE_URL
-NEXT_PUBLIC_SUPABASE_ANON_KEY
-ANTHROPIC_API_KEY
-ELEVENLABS_API_KEY   # or Google TTS credentials
+# Server-only (never in client bundle)
+ANTHROPIC_API_KEY=sk-ant-...
+
+# Client-accessible (optional)
+EXPO_PUBLIC_SUPABASE_URL=...
+EXPO_PUBLIC_SUPABASE_ANON_KEY=...
+```
+
+### Directory Structure
+
+```
+app/                     # Expo Router pages
+  _layout.tsx            # Root layout (NativeWind, onboarding guard)
+  (tabs)/                # Tab navigator
+    _layout.tsx          # Tab config (Home, Chat, Settings)
+    index.tsx            # Home dashboard
+    chat.tsx             # Ask GURUji chat screen
+    settings.tsx         # Settings
+  onboarding/            # Onboarding stack
+    index.tsx            # Select class
+    board.tsx            # Select board
+    language.tsx         # Select language
+  api/
+    chat+api.ts          # Claude API proxy (server-side only)
+components/
+  chat/                  # Chat UI components
+lib/                     # Utilities, types, system prompt
+store/                   # Zustand stores
 ```
 
 ## Git Workflow
 
-**CRITICAL: After every meaningful unit of work, commit and immediately push to GitHub. This is non-negotiable — it ensures work is never lost and the project is always recoverable.**
-
-After completing any of the following, commit + push before moving on:
-- Adding a new file, component, or feature
-- Fixing a bug
-- Updating config, dependencies, or environment setup
-- Any refactor or cleanup
-- Before and after large structural changes
+**CRITICAL: After every meaningful unit of work, commit and immediately push to GitHub.**
 
 **Commit format**:
 ```
 <type>: <short summary>
 
-[optional body — why, not what]
+[optional body]
 
-Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 ```
 
 **Types**: `feat`, `fix`, `refactor`, `chore`, `style`
 
 **Rules**:
-- One logical change per commit — never batch unrelated changes
-- Always `git push` immediately after committing — never leave commits local-only
+- One logical change per commit
+- Always `git push` immediately after committing
 - Never force push to `main` without explicit user confirmation

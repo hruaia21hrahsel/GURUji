@@ -1,22 +1,31 @@
 # Dependencies
 node_modules/
-.pnp
-.pnp.js
 
-# Next.js
-.next/
-out/
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
 
 # Build
-dist/
 build/
 
 # Environment variables
 .env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env*.local
 
 # Logs
 npm-debug.log*
@@ -26,6 +35,7 @@ yarn-error.log*
 # OS
 .DS_Store
 Thumbs.db
+*.pem
 
 # IDE
 .vscode/
@@ -33,6 +43,9 @@ Thumbs.db
 *.swp
 *.swo
 
-# PWA
-public/sw.js
-public/workbox-*.js
+# TypeScript
+*.tsbuildinfo
+
+# Generated native folders
+/ios
+/android
