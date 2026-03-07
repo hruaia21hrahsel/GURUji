@@ -57,9 +57,16 @@ ELEVENLABS_API_KEY   # or Google TTS credentials
 
 ## Git Workflow
 
-Commit and push after every meaningful unit of work.
+**CRITICAL: After every meaningful unit of work, commit and immediately push to GitHub. This is non-negotiable — it ensures work is never lost and the project is always recoverable.**
 
-**Format**:
+After completing any of the following, commit + push before moving on:
+- Adding a new file, component, or feature
+- Fixing a bug
+- Updating config, dependencies, or environment setup
+- Any refactor or cleanup
+- Before and after large structural changes
+
+**Commit format**:
 ```
 <type>: <short summary>
 
@@ -70,7 +77,7 @@ Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
 
 **Types**: `feat`, `fix`, `refactor`, `chore`, `style`
 
-Rules:
+**Rules**:
 - One logical change per commit — never batch unrelated changes
-- Always `git push` immediately after committing
+- Always `git push` immediately after committing — never leave commits local-only
 - Never force push to `main` without explicit user confirmation
