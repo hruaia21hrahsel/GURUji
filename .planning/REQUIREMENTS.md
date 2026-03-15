@@ -12,8 +12,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **AUTH-01**: User can sign up and log in with phone number + OTP
 - [ ] **AUTH-02**: User can sign in with Google (one-tap)
 - [ ] **AUTH-03**: User can sign up and log in with email and password
-- [ ] **AUTH-04**: User session persists across app restarts and devices via Supabase Auth
-- [ ] **AUTH-05**: User profile (class, board, language) synced to server after auth
+- [x] **AUTH-04**: User session persists across app restarts and devices via Supabase Auth
+- [x] **AUTH-05**: User profile (class, board, language) synced to server after auth
 
 ### Curriculum Navigation
 
@@ -141,8 +141,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUTH-01 | Phase 1 | Pending |
 | AUTH-02 | Phase 1 | Pending |
 | AUTH-03 | Phase 1 | Pending |
-| AUTH-04 | Phase 1 | Pending |
-| AUTH-05 | Phase 1 | Pending |
+| AUTH-04 | Phase 1 | Complete |
+| AUTH-05 | Phase 1 | Complete |
 | CURR-01 | Phase 2 | Pending |
 | CURR-02 | Phase 2 | Pending |
 | CURR-03 | Phase 2 | Pending |
