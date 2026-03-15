@@ -4,6 +4,16 @@ import { usePinStore } from '@/store/usePinStore';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 // ----------------------------------------------------------------
+// Identity type (subset of Supabase Identity)
+// ----------------------------------------------------------------
+export interface Identity {
+  id: string;
+  provider: string;
+  identity_id: string;
+  [key: string]: unknown;
+}
+
+// ----------------------------------------------------------------
 // Type for all auth function returns — mirrors Supabase's pattern
 // ----------------------------------------------------------------
 export type AuthResult = { data: unknown; error: { message: string } | null };
@@ -198,4 +208,148 @@ export async function signOut(): Promise<void> {
   }
   useAppStore.getState().clearAuth();
   usePinStore.getState().reset();
+}
+
+// ----------------------------------------------------------------
+// Settings auth management (Plan 03)
+// ----------------------------------------------------------------
+
+/**
+ * getLinkedIdentities: Returns the list of auth identities linked to the
+ * current user (phone, google, email, etc.).
+ */
+export async function getLinkedIdentities(): Promise<Identity[]> {
+  const { data, error } = await supabase.auth.getUserIdentities();
+  if (error) {
+    console.error('[GURUji] Get identities error:', error);
+    return [];
+  }
+  return ((data as any)?.identities ?? []) as Identity[];
+}
+
+/**
+ * linkGoogleAccount: Links a Google identity to the current account.
+ * If the Google account already belongs to another user, returns an error.
+ */
+export async function linkGoogleAccount(): Promise<AuthResult> {
+  try {
+    const webClientId = process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID;
+    if (!webClientId) {
+      return {
+        data: null,
+        error: {
+          message:
+            'Google Sign-In is not configured. Set EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID in .env.local.',
+        },
+      };
+    }
+
+    GoogleSignin.configure({ webClientId });
+    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+    const userInfo = await GoogleSignin.signIn();
+
+    const idToken =
+      (userInfo as any)?.data?.idToken ?? (userInfo as any)?.idToken ?? null;
+
+    if (!idToken) {
+      return {
+        data: null,
+        error: { message: 'Google Sign-In did not return an ID token. Please try again.' },
+      };
+    }
+
+    const { data, error } = await supabase.auth.linkIdentity({
+      provider: 'google',
+      options: { idToken } as any,
+    });
+
+    if (error) {
+      // Handle duplicate identity — account exists on another user
+      if (
+        error.message?.toLowerCase().includes('already linked') ||
+        error.message?.toLowerCase().includes('already exists')
+      ) {
+        return {
+          data: null,
+          error: { message: 'Account exists — log in with the original method' },
+        };
+      }
+      return { data: null, error: { message: error.message } };
+    }
+
+    return { data, error: null };
+  } catch (err: unknown) {
+    const message =
+      err instanceof Error ? err.message : 'Failed to link Google account. Please try again.';
+    return { data: null, error: { message } };
+  }
+}
+
+/**
+ * unlinkIdentity: Removes a linked identity from the current user.
+ * Requires the user to have at least 2 identities (enforced client-side for UX).
+ */
+export async function unlinkIdentity(identityId: string): Promise<AuthResult> {
+  // Client-side guard: fetch current identities
+  const identities = await getLinkedIdentities();
+  if (identities.length < 2) {
+    return {
+      data: null,
+      error: {
+        message:
+          'Cannot remove your only sign-in method. Add another method first.',
+      },
+    };
+  }
+
+  const target = identities.find((id) => id.id === identityId || id.identity_id === identityId);
+  if (!target) {
+    return { data: null, error: { message: 'Identity not found.' } };
+  }
+
+  const { data, error } = await supabase.auth.unlinkIdentity(target as any);
+  if (error) {
+    return { data: null, error: { message: error.message } };
+  }
+  return { data, error: null };
+}
+
+/**
+ * requestAccountDeletion: Sets deletion_requested_at on the profiles table,
+ * then signs the user out. A scheduled function handles the 7-day wipe.
+ */
+export async function requestAccountDeletion(): Promise<void> {
+  const userId = useAppStore.getState().userId;
+  if (!userId) {
+    console.error('[GURUji] requestAccountDeletion: no userId in store');
+    return;
+  }
+
+  const { error } = await supabase
+    .from('profiles')
+    .update({ deletion_requested_at: new Date().toISOString() })
+    .eq('id', userId);
+
+  if (error) {
+    console.error('[GURUji] Account deletion request failed:', error);
+  }
+
+  await signOut();
+}
+
+/**
+ * cancelAccountDeletion: Clears deletion_requested_at on the profiles table.
+ */
+export async function cancelAccountDeletion(): Promise<void> {
+  const userId = useAppStore.getState().userId;
+  if (!userId) return;
+
+  const { error } = await supabase
+    .from('profiles')
+    .update({ deletion_requested_at: null })
+    .eq('id', userId);
+
+  if (error) {
+    console.error('[GURUji] Cancel account deletion failed:', error);
+  }
 }
