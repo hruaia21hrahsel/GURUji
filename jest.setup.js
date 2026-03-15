@@ -117,6 +117,27 @@ jest.mock('@supabase/supabase-js', () => {
 // ---- react-native-get-random-values (polyfill — no-op in Node.js test env) ----
 jest.mock('react-native-get-random-values', () => {});
 
+// ---- @react-native-google-signin/google-signin (native module — mock in Node env) ----
+jest.mock('@react-native-google-signin/google-signin', () => ({
+  GoogleSignin: {
+    configure: jest.fn(),
+    hasPlayServices: jest.fn(() => Promise.resolve(true)),
+    signIn: jest.fn(() =>
+      Promise.resolve({ data: { idToken: 'mock-google-id-token-abc123' } })
+    ),
+    signOut: jest.fn(() => Promise.resolve()),
+    isSignedIn: jest.fn(() => false),
+    getCurrentUser: jest.fn(() => null),
+    revokeAccess: jest.fn(() => Promise.resolve()),
+  },
+  statusCodes: {
+    SIGN_IN_CANCELLED: 'SIGN_IN_CANCELLED',
+    IN_PROGRESS: 'IN_PROGRESS',
+    PLAY_SERVICES_NOT_AVAILABLE: 'PLAY_SERVICES_NOT_AVAILABLE',
+    SIGN_IN_REQUIRED: 'SIGN_IN_REQUIRED',
+  },
+}));
+
 // ---- Reset state between tests ----
 beforeEach(() => {
   global.__appStateCallback = null;
