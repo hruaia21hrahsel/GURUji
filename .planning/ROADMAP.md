@@ -33,7 +33,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. User can sign up and log in with email and password
   4. User remains logged in after closing and reopening the app on any device
   5. User's class, board, and language preferences from onboarding sync to Supabase after login
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+- [ ] 01-01-PLAN.md — App scaffold, Supabase client with LargeSecureStore, Zustand stores, navigation guard, test framework
+- [ ] 01-02-PLAN.md — Unified auth screen with phone OTP, Google sign-in, and email/password
+- [ ] 01-03-PLAN.md — PIN/biometric lock, profile sync, settings auth management, end-to-end verification
 
 ### Phase 2: Curriculum
 **Goal**: Students can navigate the full NCERT Class 6-12 curriculum and launch a tutoring session on any topic
@@ -122,7 +126,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Auth | 0/? | Not started | - |
+| 1. Auth | 0/3 | Planning complete | - |
 | 2. Curriculum | 0/? | Not started | - |
 | 3. Student Model | 0/? | Not started | - |
 | 4. Tutor Engine | 0/? | Not started | - |
