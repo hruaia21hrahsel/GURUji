@@ -138,64 +138,64 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | TBD | Pending |
-| AUTH-02 | TBD | Pending |
-| AUTH-03 | TBD | Pending |
-| AUTH-04 | TBD | Pending |
-| AUTH-05 | TBD | Pending |
-| CURR-01 | TBD | Pending |
-| CURR-02 | TBD | Pending |
-| CURR-03 | TBD | Pending |
-| CURR-04 | TBD | Pending |
-| TUTR-01 | TBD | Pending |
-| TUTR-02 | TBD | Pending |
-| TUTR-03 | TBD | Pending |
-| TUTR-04 | TBD | Pending |
-| TUTR-05 | TBD | Pending |
-| TUTR-06 | TBD | Pending |
-| TUTR-07 | TBD | Pending |
-| MEMO-01 | TBD | Pending |
-| MEMO-02 | TBD | Pending |
-| MEMO-03 | TBD | Pending |
-| MEMO-04 | TBD | Pending |
-| MEMO-05 | TBD | Pending |
-| MEMO-06 | TBD | Pending |
-| MEMO-07 | TBD | Pending |
-| MAST-01 | TBD | Pending |
-| MAST-02 | TBD | Pending |
-| MAST-03 | TBD | Pending |
-| PROG-01 | TBD | Pending |
-| PROG-02 | TBD | Pending |
-| PROG-03 | TBD | Pending |
-| PROG-04 | TBD | Pending |
-| PROG-05 | TBD | Pending |
-| GAME-01 | TBD | Pending |
-| GAME-02 | TBD | Pending |
-| GAME-03 | TBD | Pending |
-| GAME-04 | TBD | Pending |
-| RNDR-01 | TBD | Pending |
-| RNDR-02 | TBD | Pending |
-| RNDR-03 | TBD | Pending |
-| LANG-01 | TBD | Pending |
-| LANG-02 | TBD | Pending |
-| LANG-03 | TBD | Pending |
-| PRNT-01 | TBD | Pending |
-| PRNT-02 | TBD | Pending |
-| PRNT-03 | TBD | Pending |
-| PRNT-04 | TBD | Pending |
-| FREE-01 | TBD | Pending |
-| FREE-02 | TBD | Pending |
-| FREE-03 | TBD | Pending |
-| FREE-04 | TBD | Pending |
-| SAFE-01 | TBD | Pending |
-| SAFE-02 | TBD | Pending |
-| SAFE-03 | TBD | Pending |
+| AUTH-01 | Phase 1 | Pending |
+| AUTH-02 | Phase 1 | Pending |
+| AUTH-03 | Phase 1 | Pending |
+| AUTH-04 | Phase 1 | Pending |
+| AUTH-05 | Phase 1 | Pending |
+| CURR-01 | Phase 2 | Pending |
+| CURR-02 | Phase 2 | Pending |
+| CURR-03 | Phase 2 | Pending |
+| CURR-04 | Phase 2 | Pending |
+| TUTR-01 | Phase 4 | Pending |
+| TUTR-02 | Phase 4 | Pending |
+| TUTR-03 | Phase 4 | Pending |
+| TUTR-04 | Phase 4 | Pending |
+| TUTR-05 | Phase 4 | Pending |
+| TUTR-06 | Phase 4 | Pending |
+| TUTR-07 | Phase 4 | Pending |
+| MEMO-01 | Phase 3 | Pending |
+| MEMO-02 | Phase 3 | Pending |
+| MEMO-03 | Phase 3 | Pending |
+| MEMO-04 | Phase 3 | Pending |
+| MEMO-05 | Phase 3 | Pending |
+| MEMO-06 | Phase 3 | Pending |
+| MEMO-07 | Phase 3 | Pending |
+| MAST-01 | Phase 3 | Pending |
+| MAST-02 | Phase 3 | Pending |
+| MAST-03 | Phase 3 | Pending |
+| PROG-01 | Phase 5 | Pending |
+| PROG-02 | Phase 5 | Pending |
+| PROG-03 | Phase 5 | Pending |
+| PROG-04 | Phase 5 | Pending |
+| PROG-05 | Phase 5 | Pending |
+| GAME-01 | Phase 5 | Pending |
+| GAME-02 | Phase 5 | Pending |
+| GAME-03 | Phase 5 | Pending |
+| GAME-04 | Phase 5 | Pending |
+| RNDR-01 | Phase 7 | Pending |
+| RNDR-02 | Phase 7 | Pending |
+| RNDR-03 | Phase 7 | Pending |
+| LANG-01 | Phase 4 | Pending |
+| LANG-02 | Phase 4 | Pending |
+| LANG-03 | Phase 4 | Pending |
+| PRNT-01 | Phase 8 | Pending |
+| PRNT-02 | Phase 8 | Pending |
+| PRNT-03 | Phase 8 | Pending |
+| PRNT-04 | Phase 8 | Pending |
+| FREE-01 | Phase 6 | Pending |
+| FREE-02 | Phase 6 | Pending |
+| FREE-03 | Phase 6 | Pending |
+| FREE-04 | Phase 6 | Pending |
+| SAFE-01 | Phase 4 | Pending |
+| SAFE-02 | Phase 4 | Pending |
+| SAFE-03 | Phase 4 | Pending |
 
 **Coverage:**
-- v1 requirements: 49 total
-- Mapped to phases: 0
-- Unmapped: 49 ⚠️
+- v1 requirements: 52 total
+- Mapped to phases: 52
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-03-15*
-*Last updated: 2026-03-15 after initial definition*
+*Last updated: 2026-03-15 — traceability completed after roadmap creation*
