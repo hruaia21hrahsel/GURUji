@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-auth-02-PLAN.md
-last_updated: "2026-03-15T15:51:02.380Z"
+stopped_at: "Checkpoint: 01-auth-03 Task 3 human-verify"
+last_updated: "2026-03-15T15:59:06.670Z"
 last_activity: 2026-03-15 — Plan 01-01 complete — app scaffold, LargeSecureStore, Supabase client, PIN store, 18 Jest tests passing
 progress:
   total_phases: 8
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
+  completed_plans: 3
   percent: 3
 ---
 
@@ -51,6 +51,7 @@ Progress: [█░░░░░░░░░] 3%
 
 *Updated after each plan completion*
 | Phase 01-auth P02 | 30 | 2 tasks | 11 files |
+| Phase 01-auth P03 | 35 | 2 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -69,6 +70,9 @@ Recent decisions affecting current work:
 - [Phase 01-02]: GoogleSignin uses static import in lib/auth.ts — mocked globally in jest.setup.js to prevent TurboModule crash in Node test env
 - [Phase 01-02]: Auth functions return errors, they do not navigate — root layout onAuthStateChange handles all post-auth redirects
 - [Phase 01-02]: Phone OTP input hardcodes +91 prefix with 10-digit field — simplifies UX for primary India market
+- [Phase 01-auth]: PIN stored in SecureStore directly (no hashing) — hardware-backed storage provides equivalent security for 4-digit PIN
+- [Phase 01-auth]: AppState re-lock pattern: lock() called on every foreground event — every app open requires PIN/biometric
+- [Phase 01-auth]: requestAccountDeletion sets deletion_requested_at then signs out immediately — 7-day grace period handled by scheduled Supabase function
 
 ### Pending Todos
 
@@ -81,6 +85,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-15T15:51:02.377Z
-Stopped at: Completed 01-auth-02-PLAN.md
+Last session: 2026-03-15T15:59:06.668Z
+Stopped at: Checkpoint: 01-auth-03 Task 3 human-verify
 Resume file: None

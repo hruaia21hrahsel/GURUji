@@ -12,7 +12,7 @@ Starting from a working Expo chat scaffold, GURUji is transformed into a genuine
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Auth** - Users can sign in with phone OTP, Google, or email and stay logged in across devices
+- [x] **Phase 1: Auth** - Users can sign in with phone OTP, Google, or email and stay logged in across devices (completed 2026-03-15)
 - [ ] **Phase 2: Curriculum** - Students can browse the complete NCERT/CBSE curriculum tree and start a session on any topic
 - [ ] **Phase 3: Student Model** - GURUji tracks per-student learning pace, weak areas, interests, and per-topic mastery in Supabase
 - [ ] **Phase 4: Tutor Engine** - GURUji teaches Socratically with memory injection, bilingual support, and strict academic guardrails
@@ -126,7 +126,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Auth | 2/3 | In Progress|  |
+| 1. Auth | 3/3 | Complete   | 2026-03-15 |
 | 2. Curriculum | 0/? | Not started | - |
 | 3. Student Model | 0/? | Not started | - |
 | 4. Tutor Engine | 0/? | Not started | - |
