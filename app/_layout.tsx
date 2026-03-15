@@ -1,6 +1,6 @@
 import '../global.css';
 import { useEffect } from 'react';
-import { AppState, Text, View } from 'react-native';
+import { AppState } from 'react-native';
 import { Stack } from 'expo-router';
 import { useAppStore } from '@/store/useAppStore';
 import { supabase } from '@/lib/supabase';
@@ -72,12 +72,9 @@ export default function RootLayout() {
 
   if (isOnboarded && !isAuthenticated) {
     return (
-      <View className="flex-1 items-center justify-center bg-white px-6">
-        <Text className="text-2xl font-bold text-gray-900 mb-2">Sign In</Text>
-        <Text className="text-base text-gray-500 text-center">
-          Auth screen coming in Plan 02
-        </Text>
-      </View>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="auth" />
+      </Stack>
     );
   }
 
