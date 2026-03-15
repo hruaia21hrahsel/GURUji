@@ -146,6 +146,10 @@ Google Sign-In requires manual configuration before it can be used in a real bui
 - Phone OTP will silently fail until DLT registration is complete (see Blockers in STATE.md)
 - Google Sign-In requires EAS development build (not Expo Go) to test on physical device
 
+## Self-Check: PASSED
+
+All created files verified on disk. Task commits d2a1290 and dfc0ce3 confirmed in git log. 22 unit tests passing. Expo web export successful.
+
 ---
 *Phase: 01-auth*
 *Completed: 2026-03-15*

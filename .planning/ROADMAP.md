@@ -35,9 +35,9 @@ Decimal phases appear between their surrounding integers in numeric order.
   5. User's class, board, and language preferences from onboarding sync to Supabase after login
 **Plans**: 3 plans
 Plans:
-- [ ] 01-01-PLAN.md — App scaffold, Supabase client with LargeSecureStore, Zustand stores, navigation guard, test framework
-- [ ] 01-02-PLAN.md — Unified auth screen with phone OTP, Google sign-in, and email/password
-- [ ] 01-03-PLAN.md — PIN/biometric lock, profile sync, settings auth management, end-to-end verification
+- [x] 01-01-PLAN.md — App scaffold, Supabase client with LargeSecureStore, Zustand stores, navigation guard, test framework
+- [x] 01-02-PLAN.md — Unified auth screen with phone OTP, Google sign-in, and email/password
+- [x] 01-03-PLAN.md — PIN/biometric lock, profile sync, settings auth management, end-to-end verification
 
 ### Phase 2: Curriculum
 **Goal**: Students can navigate the full NCERT Class 6-12 curriculum and launch a tutoring session on any topic
